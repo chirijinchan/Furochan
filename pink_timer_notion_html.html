@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pink Timer</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .timer {
+      background: #ffc1da;
+      color: #ffffff;
+      padding: 22px 28px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      width: 220px;
+    }
+
+    .time {
+      font-size: 38px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.25);
+      color: white;
+      backdrop-filter: blur(4px);
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.4);
+    }
+
+    input {
+      width: 60px;
+      border: none;
+      border-radius: 8px;
+      padding: 4px;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .set {
+      margin-top: 4px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">
+    <div class="time" id="display">05:00</div>
+
+    <div class="controls">
+      <button onclick="start()">Start</button>
+      <button onclick="pause()">Pause</button>
+      <button onclick="reset()">Reset</button>
+    </div>
+
+    <div class="set">
+      <input id="minutes" type="number" min="1" max="120" value="5"> min
+      <button onclick="setTime()">Set</button>
+    </div>
+  </div>
+
+  <script>
+    let totalSeconds = 300;
+    let interval = null;
+
+    function updateDisplay() {
+      const min = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+      const sec = String(totalSeconds % 60).padStart(2, "0");
+      document.getElementById("display").textContent = `${min}:${sec}`;
+    }
+
+    function start() {
+      if (interval) return;
+      interval = setInterval(() => {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          updateDisplay();
+        } else {
+          clearInterval(interval);
+          interval = null;
+        }
+      }, 1000);
+    }
+
+    function pause() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function reset() {
+      pause();
+      setTime();
+    }
+
+    function setTime() {
+      const min = parseInt(document.getElementById("minutes").value) || 0;
+      totalSeconds = min * 60;
+      updateDisplay();
+    }
+
+    updateDisplay();
+  </script>
+</body>
+</html>
