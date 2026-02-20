@@ -1,78 +1,85 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reloj Gato Chile</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: white;
+      padding: 0;
+      background: transparent; /* importante para Notion */
       font-family: "Courier New", monospace;
+    }
+
+    /* contenedor responsive para Notion */
+    .wrapper {
+      width: 100%;
+      max-width: 320px; /* tamaño ideal en Notion */
+      margin: 0 auto;
     }
 
     .cat-clock {
       position: relative;
-      width: 260px;
-      height: 220px;
+      width: 100%;
+      aspect-ratio: 260 / 220; /* mantiene forma del gato */
       background: #E0C8D6;
       border-radius: 50% 50% 45% 45%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
 
-    /* Orejas */
+    /* orejas */
     .cat-clock::before,
     .cat-clock::after {
       content: "";
       position: absolute;
-      top: -40px;
-      width: 80px;
-      height: 80px;
+      top: -18%;
+      width: 30%;
+      aspect-ratio: 1 / 1;
       background: #E0C8D6;
       border-radius: 20% 80% 0 80%;
     }
 
     .cat-clock::before {
-      left: 20px;
+      left: 8%;
       transform: rotate(-25deg);
     }
 
     .cat-clock::after {
-      right: 20px;
+      right: 8%;
       transform: rotate(25deg) scaleX(-1);
     }
 
-    /* Pantalla digital */
+    /* pantalla */
     .time {
-      font-size: 42px;
+      font-size: clamp(18px, 8vw, 34px); /* escala en Notion */
       letter-spacing: 2px;
       color: #333;
       background: white;
-      padding: 12px 18px;
-      border-radius: 12px;
+      padding: 0.4em 0.7em;
+      border-radius: 10px;
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);
     }
 
     .label {
       position: absolute;
-      bottom: 16px;
-      font-size: 12px;
+      bottom: 6%;
+      font-size: clamp(9px, 3vw, 12px);
       color: #555;
       opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div class="cat-clock">
-    <div class="time" id="clock">00:00:00</div>
-    <div class="label">Hora en Chile</div>
+  <div class="wrapper">
+    <div class="cat-clock">
+      <div class="time" id="clock">00:00:00</div>
+      <div class="label">Hora en Chile</div>
+    </div>
   </div>
 
   <script>
